@@ -112,3 +112,19 @@ s4.as_ptr = 0x60000346c050
 2. 引用必须总是有效的
 
 因为这套规则的限制，rust的引用和c的引用不同，所以称之为`借用（Borrowing）`
+
+# 4.String和&str
+
+```rust
+fn main() {
+    let mut s = String::from("hello world");
+
+    let word = &s[..];
+
+    //s.clear();
+
+    println!("s = {:p}, word = {:p}", s.as_ptr(), word);	//s = 0x6000034c8050, word = 0x6000034c8050
+}
+```
+
+`&str`对`String`的切片是对`String`的不可变引用
