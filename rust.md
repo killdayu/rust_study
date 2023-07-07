@@ -156,3 +156,43 @@ fn main() {
 }
 ```
 
+为什么text的所有权不会发生转移？
+
+```rust
+fn main() {
+    let text = String::from("test");
+    println!("{text}");
+    println!("{text}");
+}
+```
+
+宏展开
+
+```rust
+#![feature(prelude_import)]
+#[prelude_import]
+use std::prelude::rust_2021::*;
+#[macro_use]
+extern crate std;
+fn main() {
+    let text = String::from("123");
+    {
+        ::std::io::_print(format_args!("{0}\n", text));
+    };
+    {
+        ::std::io::_print(format_args!("{0}\n", text));
+    };
+}
+```
+
+现在这个版本并不会展开所有宏，我还没找到展开所有宏的命令。
+
+Chatgpt 4.0:
+
+```
+然而，请注意，cargo-expand 可能无法完全展开所有宏。有些宏（例如那些在编译器内部实现的宏）可能无法被 cargo-expand 展开。此外，cargo-expand 展开的代码可能难以阅读，因为展开过程可能会生成大量的内部标识符和结构。
+```
+
+可以看看这个
+
+https://zhuanlan.zhihu.com/p/261370020
