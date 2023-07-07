@@ -132,9 +132,7 @@ s4.as_ptr = 0x60000346c050
 ```bash
 rustup toolchain install nightly
 cargo +nightly install cargo-expand
-cd dir
-rustup override set nightly
-cargo expand
+cargo +nightly expand
 ```
 
 ```rust
